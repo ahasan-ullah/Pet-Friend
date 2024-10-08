@@ -19,7 +19,7 @@
 </head>
 <body class="lato-font">
   <!-- header -->
-  <header class="w-full md:w-11/12 mx-auto">
+  <header class="w-[95%] md:w-11/12 mx-auto">
     <!-- navbar -->
     <nav>
       <div class="navbar bg-base-100">
@@ -63,18 +63,16 @@
       </div>
     </nav>
     <!-- hero section -->
-    <div class="">
+    <div class="mt-10">
       <!-- text content -->
-      <div class="hero-content text-center">
-        <div class="max-w-lg">
-          <div class="flex items-center justify-center space-x-3">
-            <p class="py-6 color-gray font-bold text-sm md:text-base">Bringing Families Together</p>
-            <img class="w-6 h-6" src="https://img.icons8.com/?size=48&id=QV5JEtrTP6nH&format=png" alt="">
-          </div>
-          <h1 class="text-3xl md:text-5xl font-black">Your Path to Adoption Starts Here</h1>
-          <p class="py-6">Welcome to our pet adoption platform, where lovable pets are waiting for a forever home. Start your journey today and bring joy into your life by adopting a furry companion in need.</p>
-          <button class="btn bg-[#0E7A81] text-white">View More</button>
+      <div class="max-w-lg mx-auto text-center">
+        <div class="flex items-center justify-center space-x-3">
+          <p class="py-6 color-gray font-bold text-sm md:text-base">Bringing Families Together</p>
+          <img class="w-6 h-6" src="https://img.icons8.com/?size=48&id=QV5JEtrTP6nH&format=png" alt="">
         </div>
+        <h1 class="text-3xl md:text-5xl font-black">Your Path to Adoption Starts Here</h1>
+        <p class="py-6">Welcome to our pet adoption platform, where lovable pets are waiting for a forever home. Start your journey today and bring joy into your life by adopting a furry companion in need.</p>
+        <a href="#pet-section"><button class="btn bg-[#0E7A81] text-white">View More</button></a>
       </div>
       <!-- hero image -->
       <div class="max-w-lg mx-auto">
@@ -84,6 +82,33 @@
   </header>
 
 
+  <!-- main -->
+  <main id="pet-section" class="w-[95%] md:w-11/12 mx-auto my-24">
+    <!-- main header -->
+    <div class="text-center max-w-lg mx-auto color-primary">
+      <h1 class="text-3xl md:text-5xl font-black">Adopt  Your  Best Friend</h1>
+      <p class="py-6">Discover the joy of unconditional love by adopting a pet in need. Our rescue animals are waiting for a caring home, ready to become your loyal companion. Give them a chance, and find your perfect match today.</p>
+    </div>
+    <!-- category buttons -->
+    <div id="category-btn-container" class="flex justify-between my-4 md:my-8">
+      <!-- dynamic buttons will be added here -->
+    </div>
+
+    <!-- pet card heading -->
+    <div class="flex justify-between items-center mb-4 md:mb-8">
+      <h1 class="text-xxl font-black">Best Deal For you</h1>
+      <button class="btn bg-[#0E7A81] text-white">Sort By Price</button>
+    </div>
+
+    <!-- pet card -->
+    <div class="grid grid-cols-12">
+      <div id="pet-card-container" class="col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <!-- card -->
+          <!-- dynamically created card -->
+        <!--  -->
+      </div>
+    </div>
+  </main>
 
 
   <!-- footer -->
@@ -113,9 +138,9 @@
         <a class="link link-hover">Foundation</a>
         <a class="link link-hover">Contact</a>
       </nav>
-      <form>
+      <form class="md:w-64">
         <h6 class="footer-title">Drop a Message</h6>
-        <fieldset class="form-control">
+        <fieldset class="form-control w-full">
           <div class="flex flex-col space-y-5">
             <input type="text" placeholder="Enter your email" class="input input-bordered input-bg"/>
             <button class="btn bg-[#0E7A81] border-none text-white">Subscribe</button>
