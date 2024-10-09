@@ -116,7 +116,7 @@ const displayAllPets=(pets)=>{
     <div class="flex justify-between pt-4">
       <button onclick="addToLikeContainer('${pet.image}')" class="btn btn-sm bg-transparent"><i class="fa-regular fa-thumbs-up"></i></button>
       <button class="btn btn-sm bg-transparent text-[#0E7A81]">Adopt</button>
-      <button class="btn btn-sm bg-transparent text-[#0E7A81]">Details</button>
+      <button onclick="loadPetDetails('${pet.petId}')" class="btn btn-sm bg-transparent text-[#0E7A81]">Details</button>
     </div>
     `;
     petCardContainer.append(div);
@@ -137,6 +137,51 @@ const addToLikeContainer=(image)=>{
   likeCardContainer.innerHTML+=`
     <img class="border rounded-lg" src=${image} alt="">
   `;
+};
+
+// details button
+const loadPetDetails=(id)=>{
+  console.log(`https://openapi.programming-hero.com/api/peddy/pet/${id}`);
+  fetch(`https://openapi.programming-hero.com/api/peddy/pet/${id}`)
+  .then(res=>res.json())
+  .then(data=>displayPetDetails(data))
+  .catch(err=>console.log(err));
+};
+
+// display pet details
+const displayPetDetails=(pet)=>{
+  const detailsModal=document.getElementById('details_modal');
+  const div=document.createElement('div');
+  div.classList.add('modal-box');
+  div.innerHTML=`
+    <div class="mb-4">
+      <img class="rounded-lg w-full" src=${pet.petData.image} alt="">
+    </div>
+    <div>
+      <h3 class="text-lg font-bold">${pet.petData.pet_name}</h3>
+      <div class="w-[70%] grid grid-cols-2 text-sm color-gray mt-2">
+        <p><i class="fa-solid fa-border-all"></i> Breed: ${pet.petData.breed?`${pet.petData.breed}`:'Breed info not found'}</p>
+        <p><i class="fa-regular fa-calendar"></i> Birth: ${pet.petData.date_of_birth?`${pet.petData.date_of_birth}`:'Unknown Birth Date'}</p>
+        <p class="py-2"><i class="fa-solid fa-venus"></i> Gender: ${pet.petData.gender?`${pet.petData.gender}`:'Gender not available'}</p>
+        <p class="py-2"><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.petData.price?`${pet.petData.price}`:'Out of stock'} </p>
+        <p><i class="fa-solid fa-dollar-sign"></i> Vaccinated Status: ${pet.petData.vaccinated_status?`${pet.petData.vaccinated_status}`:'Not vaccinated'}</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="mt-2">
+      <h3 class="text-lg font-bold">Details Information</h3>
+      <div class="text-sm pt-2 pb-4 color-gray">
+        <p>${pet.petData.pet_details?`${pet.petData.pet_details}`:'Pet Details not found'}</p>
+      </div>
+    </div>
+    <div class="modal-action w-full">
+      <form method="dialog" class="w-full">
+        <button class="btn w-full active btn-border">Close</button>
+      </form>
+    </div>
+  `;
+  detailsModal.append(div);
+  detailsModal.showModal()
 };
 
 
