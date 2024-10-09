@@ -14,10 +14,12 @@ const loadAllPets=()=>{
   .catch(err=>console.log(err));
 };
 
+// active button functionality added
 const removeActiveClass=()=>{
   const buttons=document.getElementsByClassName('btn-category');
   for(const btn of buttons){
     btn.classList.remove('active');
+    btn.classList.add('bg-transparent');
   }
 };
 
@@ -26,9 +28,10 @@ const displayCategoryButtons=(categories)=>{
   const categoryBtnContainer=document.getElementById('category-btn-container');
   categories.forEach(category=>{
     const div=document.createElement('div');
+    const btnId=`btn-${category.id}`;
     div.innerHTML=
     `
-    <button id="btn-${category.id}" onclick="loadPetByCategory('${category.id}','${category.category}')" class="btn bg-transparent lg:btn-lg rounded-3xl lg:px-20 btn-border btn-category"><img class="w-4 h-4 lg:w-auto lg:h-auto" src=${category.category_icon} alt="">${category.category}</button>
+    <button id='${btnId}' onclick="loadPetByCategory('${category.id}','${category.category}')" class="btn bg-transparent lg:btn-lg rounded-3xl lg:px-20 btn-border btn-category"><img class="w-4 h-4 lg:w-auto lg:h-auto" src=${category.category_icon} alt="">${category.category}</button>
     `;
     categoryBtnContainer.append(div);
   });
@@ -42,6 +45,7 @@ const loadPetByCategory=(id,category)=>{
   .then(data=>{
     removeActiveClass();
     const activeBtn=document.getElementById(`btn-${id}`);
+    activeBtn.classList.remove('bg-transparent');
     activeBtn.classList.add('active');
     loadSpinner(data.data);
   })
@@ -71,6 +75,9 @@ const loadSpinner=(pets)=>{
 const displayAllPets=(pets)=>{
   const petCardContainer=document.getElementById('pet-card-container');
   petCardContainer.innerHTML='';
+
+  // sorting the pets array
+  sortPets(pets);
 
   if(pets.length==0){
     petCardContainer.classList.remove('grid');
@@ -113,6 +120,14 @@ const displayAllPets=(pets)=>{
     </div>
     `;
     petCardContainer.append(div);
+  });
+};
+
+
+// sorting the pet in descending order
+const sortPets=(pets)=>{
+  document.getElementById('btn-sort').addEventListener('click',()=>{
+    loadSpinner(pets.sort((a,b)=>b.price-a.price));
   });
 };
 
