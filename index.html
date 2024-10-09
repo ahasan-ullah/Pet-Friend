@@ -96,19 +96,31 @@
 
     <!-- pet card heading -->
     <div class="flex justify-between items-center mb-4 md:mb-8">
-      <h1 class="text-xxl font-black">Best Deal For you</h1>
+      <h1 class="text-xl font-black">Best Deal For you</h1>
       <button class="btn bg-[#0E7A81] text-white">Sort By Price</button>
     </div>
 
     <!-- pet card -->
-    <div class="grid grid-cols-12">
-      <div id="pet-card-container" class="col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+    <div class="grid grid-cols-12 gap-2 md:gap-3 lg:gap-5 h-auto">
+      <!-- left part -->
+      <div class="col-span-8">
         <!-- card -->
+        <div id="pet-card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           <!-- dynamically created card -->
+        </div>
         <!--  -->
+      </div>
+      <!-- right part -->
+      <div class="col-span-4">
+        <!-- card -->
+        <div id="like-card-container" class="grid grid-cols-1 lg:grid-cols-2 gap-2 border rounded-lg p-2">
+          <!-- dynamically created like card -->
+        </div>
       </div>
     </div>
   </main>
+
+  <!-- details modal -->
 
 
   <!-- footer -->
