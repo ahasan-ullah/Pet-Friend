@@ -10,7 +10,7 @@ const loadCategoryButtons=()=>{
 const loadAllPets=()=>{
   fetch('https://openapi.programming-hero.com/api/peddy/pets')
   .then(res=>res.json())
-  .then(data=>displayAllPets(data.pets))
+  .then(data=>loadSpinner(data.pets))
   .catch(err=>console.log(err));
 };
 
@@ -31,7 +31,7 @@ const displayCategoryButtons=(categories)=>{
     const btnId=`btn-${category.id}`;
     div.innerHTML=
     `
-    <button id='${btnId}' onclick="loadPetByCategory('${category.id}','${category.category}')" class="btn bg-transparent lg:btn-lg rounded-3xl lg:px-20 btn-border btn-category"><img class="w-4 h-4 lg:w-auto lg:h-auto" src=${category.category_icon} alt="">${category.category}</button>
+    <button id='${btnId}' onclick="loadPetByCategory('${category.id}','${category.category}')" class="btn bg-transparent lg:btn-lg rounded-3xl lg:px-20 btn-border btn-category"><img class="w-4 h-4 lg:w-auto lg:h-auto" src=${category.category_icon} alt="">${category.category}s</button>
     `;
     categoryBtnContainer.append(div);
   });
@@ -62,7 +62,7 @@ const loadSpinner=(pets)=>{
   const div=document.createElement('div');
   div.classList='flex justify-center';
   div.innerHTML=`
-  <span class="loading loading-ring loading-lg"></span>
+  <span class="loading loading-dots loading-lg"></span>
   `;
   petCardContainer.append(div);
   setTimeout(()=>{
@@ -106,17 +106,17 @@ const displayAllPets=(pets)=>{
     div.classList='p-4 border rounded-lg shadow-sm';
     div.innerHTML=`
     <img src=${pet.image} alt="Shoes" class="rounded-lg mb-4"/>
-    <h2 class="card-title text-xl color-primary">${pet.pet_name?`${pet.pet_name}`:'Not Named Yet'}</h2>
+    <h2 class="card-title text-xl color-primary font-black">${pet.pet_name?`${pet.pet_name}`:'Not available'}</h2>
     <div class="space-y-2 text-sm border-b pt-2 pb-6 color-gray">
-      <p><i class="fa-solid fa-border-all"></i> Breed: ${pet.breed?`${pet.breed}`:'Breed info not found'}</p>
-      <p><i class="fa-regular fa-calendar"></i> Birth: ${pet.date_of_birth?`${pet.date_of_birth}`:'Unknown Birth Date'}</p>
-      <p><i class="fa-solid fa-venus"></i> Gender: ${pet.gender?`${pet.gender}`:'Gender not available'}</p>
-      <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price?`${pet.price}`:'Out of stock'}</p>
+      <p><i class="fa-solid fa-border-all"></i> Breed: ${pet.breed?`${pet.breed}`:'Not available'}</p>
+      <p><i class="fa-regular fa-calendar"></i> Birth: ${pet.date_of_birth?`${pet.date_of_birth}`:'Not available'}</p>
+      <p><i class="fa-solid fa-venus"></i> Gender: ${pet.gender?`${pet.gender}`:'Not available'}</p>
+      <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price?`${pet.price}$`:'Not available'}</p>
     </div>
     <div class="flex justify-between pt-4">
-      <button onclick="addToLikeContainer('${pet.image}')" class="btn btn-sm bg-transparent"><i class="fa-regular fa-thumbs-up"></i></button>
-      <button id='adopt-btn-${pet.petId}' onclick="loadAdopt('${pet.petId}')" class="btn btn-sm bg-transparent text-[#0E7A81]">Adopt</button>
-      <button onclick="loadPetDetails('${pet.petId}')" class="btn btn-sm bg-transparent text-[#0E7A81]">Details</button>
+      <button onclick="addToLikeContainer('${pet.image}')" class="btn btn-sm bg-transparent hover:border-[#0E7A81]"><i class="fa-regular fa-thumbs-up"></i></button>
+      <button id='adopt-btn-${pet.petId}' onclick="loadAdopt('${pet.petId}')" class="btn btn-sm bg-transparent text-[#0E7A81] hover:bg-[#0E7A81] hover:text-white">Adopt</button>
+      <button onclick="loadPetDetails('${pet.petId}')" class="btn btn-sm bg-transparent text-[#0E7A81] hover:bg-[#0E7A81] hover:text-white">Details</button>
     </div>
     `;
     petCardContainer.append(div);
@@ -135,7 +135,7 @@ const sortPets=(pets)=>{
 const addToLikeContainer=(image)=>{
   const likeCardContainer=document.getElementById('like-card-container');
   likeCardContainer.innerHTML+=`
-    <img class="border rounded-lg" src=${image} alt="">
+    <img class="rounded-lg" src=${image} alt="">
   `;
 };
 
@@ -158,25 +158,25 @@ const displayPetDetails=(pet)=>{
       <img class="rounded-lg w-full" src=${pet.petData.image} alt="">
     </div>
     <div>
-      <h3 class="text-lg font-bold">${pet.petData.pet_name}</h3>
+      <h3 class="text-lg font-black">${pet.petData.pet_name}</h3>
       <div class="w-[70%] grid grid-cols-2 text-sm color-gray mt-2">
-        <p><i class="fa-solid fa-border-all"></i> Breed: ${pet.petData.breed?`${pet.petData.breed}`:'Breed info not found'}</p>
-        <p><i class="fa-regular fa-calendar"></i> Birth: ${pet.petData.date_of_birth?`${pet.petData.date_of_birth}`:'Unknown Birth Date'}</p>
-        <p class="py-2"><i class="fa-solid fa-venus"></i> Gender: ${pet.petData.gender?`${pet.petData.gender}`:'Gender not available'}</p>
-        <p class="py-2"><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.petData.price?`${pet.petData.price}`:'Out of stock'}</p>
-        <p><i class="fa-solid fa-dollar-sign"></i> Vaccinated Status: ${pet.petData.vaccinated_status?`${pet.petData.vaccinated_status}`:'Not vaccinated'}</p>
+        <p><i class="fa-solid fa-border-all"></i> Breed: ${pet.petData.breed?`${pet.petData.breed}`:'Not available'}</p>
+        <p><i class="fa-regular fa-calendar"></i> Birth: ${pet.petData.date_of_birth?`${pet.petData.date_of_birth}`:'Not available'}</p>
+        <p class="py-2"><i class="fa-solid fa-venus"></i> Gender: ${pet.petData.gender?`${pet.petData.gender}`:'Not available'}</p>
+        <p class="py-2"><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.petData.price?`${pet.petData.price}`:'Not available'}</p>
+        <p><i class="fa-solid fa-dollar-sign"></i> Vaccinated Status: ${pet.petData.vaccinated_status?`${pet.petData.vaccinated_status}`:'Not available'}</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="mt-2">
-      <h3 class="text-lg font-bold">Details Information</h3>
+      <h3 class="text-lg font-black">Details Information</h3>
       <div class="text-sm pt-2 pb-4 color-gray">
         <p>${pet.petData.pet_details?`${pet.petData.pet_details}`:'Pet Details not found'}</p>
       </div>
     </div>
     <div class="modal-action w-full">
       <form method="dialog" class="w-full">
-        <button class="btn w-full active btn-border">Close</button>
+        <button class="btn w-full active btn-border">Cancel</button>
       </form>
     </div>
   `;
