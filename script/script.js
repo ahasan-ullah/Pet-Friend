@@ -115,7 +115,7 @@ const displayAllPets=(pets)=>{
     </div>
     <div class="flex justify-between pt-4">
       <button onclick="addToLikeContainer('${pet.image}')" class="btn btn-sm bg-transparent"><i class="fa-regular fa-thumbs-up"></i></button>
-      <button class="btn btn-sm bg-transparent text-[#0E7A81]">Adopt</button>
+      <button id='adopt-btn-${pet.petId}' onclick="loadAdopt('${pet.petId}')" class="btn btn-sm bg-transparent text-[#0E7A81]">Adopt</button>
       <button onclick="loadPetDetails('${pet.petId}')" class="btn btn-sm bg-transparent text-[#0E7A81]">Details</button>
     </div>
     `;
@@ -163,7 +163,7 @@ const displayPetDetails=(pet)=>{
         <p><i class="fa-solid fa-border-all"></i> Breed: ${pet.petData.breed?`${pet.petData.breed}`:'Breed info not found'}</p>
         <p><i class="fa-regular fa-calendar"></i> Birth: ${pet.petData.date_of_birth?`${pet.petData.date_of_birth}`:'Unknown Birth Date'}</p>
         <p class="py-2"><i class="fa-solid fa-venus"></i> Gender: ${pet.petData.gender?`${pet.petData.gender}`:'Gender not available'}</p>
-        <p class="py-2"><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.petData.price?`${pet.petData.price}`:'Out of stock'} </p>
+        <p class="py-2"><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.petData.price?`${pet.petData.price}`:'Out of stock'}</p>
         <p><i class="fa-solid fa-dollar-sign"></i> Vaccinated Status: ${pet.petData.vaccinated_status?`${pet.petData.vaccinated_status}`:'Not vaccinated'}</p>
       </div>
     </div>
@@ -182,6 +182,29 @@ const displayPetDetails=(pet)=>{
   `;
   detailsModal.append(div);
   detailsModal.showModal()
+};
+
+// adopt button
+const loadAdopt=(id)=>{
+  const countdown=document.getElementById('countdown');
+  const adoptionModal=document.getElementById('adoption_modal');
+
+  const adoptBtn=document.getElementById(`adopt-btn-${id}`);
+  adoptBtn.innerText='Adopted';
+  adoptBtn.classList="btn btn-sm disabled";
+
+  adoptionModal.showModal();
+  let count=3;
+  countdown.innerText=count;
+  const counter=setInterval(()=>{
+    count--;
+    if (count===0) {
+      clearInterval(counter);
+      adoptionModal.close();
+    } else {
+      countdown.innerText=count;
+    }
+  },1000);
 };
 
 
